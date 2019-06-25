@@ -1,7 +1,7 @@
 {
-  "name": "react-redux-router",
+  "name": "alex-carter-portfolio",
   "version": "1.0.0",
-  "description": "Basic skeleton codebase for React/Redux/Router applications.",
+  "description": "just a portfolio for myself in react",
   "scripts": {
     "preinstall": "npm set audit false",
     "start": "webpack-dev-server --config webpack/dev.config.js --watch",
