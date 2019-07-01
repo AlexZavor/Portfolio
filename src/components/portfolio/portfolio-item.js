@@ -10,7 +10,7 @@ export default function(props){
             <div 
                 className="portfolio-img-background"
                 style={{
-                    backgorundImage: "url(" + thumb_image-url + ")"
+                    backgorundImage: "url(" + thumb_image_url + ")"
                 }}
             />
             <img src={logo}/>
