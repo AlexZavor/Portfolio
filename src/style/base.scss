@@ -2,3 +2,8 @@ body {
     font-family: 'Oswald', sans-serif;
     margin: 0px;
 }
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr;
+}
