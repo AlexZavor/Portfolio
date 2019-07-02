@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-debugger;
-
 export default class PortfolioItem extends Component {
     constructor(props){
         super(props);
