@@ -42,3 +42,8 @@
         }
     }
 }
+
+.image-blur{
+    transition: .7s;
+    filter: brightness(10%);
+}
