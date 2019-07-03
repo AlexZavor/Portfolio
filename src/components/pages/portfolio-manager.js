@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
+import PortfolioSidebarList from "../portfolio/portfolio-sidebar-list"
+
 export default class PortfolioManager extends Component{
     constructor() {
         super();
         this.state = {
-            data: []
+            portfolioItems: []
         }
     }
   
@@ -14,21 +16,12 @@ export default class PortfolioManager extends Component{
           .get('https://acarter.devcamp.space/portfolio/portfolio_items')
           .then(responce => {
             this.setState({
-                data: responce.data.portfolio_items
+                portfolioItems: [...responce.data.portfolio_items]
             })
           })
           .catch(error => {
-            console.log(error);
+            console.log("error in get items", error);
           });
-    }
-
-    portfolioItems(){
-        return this.state.data.map(item => {
-            return (<PortfolioItem 
-                key = {item.id}
-                item = {item}
-            />);
-        });
     }
 
     componentDidMount(){
@@ -42,8 +35,7 @@ export default class PortfolioManager extends Component{
                     Left
                 </div>
                 <div className='right-side'>
-                    Right
-                {this.portfolioItems()}
+                    <PortfolioSidebarList data={this.state.portfolioItems}/>
                 </div>
             </div>
         );
