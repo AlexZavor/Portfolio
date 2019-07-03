@@ -15,6 +15,29 @@ import PortfolioDetail from './portfolio/portfolio-detail.js';
 import NoMatch from './pages/no-match';
 
 export default class App extends Component {
+  constructor(props){
+    super(props);
+
+    this.state ={
+      loggedInStatus: "NOT_LOGGED_IN"
+    }
+
+    this.handleSuccsessfulLogin = this.handleSuccsessfulLogin.bind(this)
+    this.handleUnsuccsessfulLogin = this.handleUnsuccsessfulLogin.bind(this)
+  }
+
+  handleSuccsessfulLogin(){
+    this.setState({
+      loggedInStatus: "LOGGED_IN"
+    })
+  }
+
+  handleUnsuccsessfulLogin(){
+    this.setState({
+      loggedInStatus: "NOT_LOGGED_IN"
+    })
+  }
+
   render() {
     return (
       <div className='container'>
@@ -24,10 +47,17 @@ export default class App extends Component {
 
             <Switch>
               <Route exact path = "/" component = {Home} />
+
+              <Route path = "/auth" render={props => (
+                <Auth {...props} 
+                handleSuccsessfulLogin={this.handleSuccsessfulLogin} 
+                handleUnsuccsessfulLogin={this.handleUnsuccsessfulLogin} 
+                />
+              )} />
+  
               <Route path = "/about-me" component = {About} />
               <Route path = "/contact" component = {Contact} />
               <Route path = "/blog" component = {Blog} />
-              <Route path = "/auth" component = {Auth} />
               <Route exact path = "/portfolio/:slug" component = {PortfolioDetail} />
 
               <Route component = {NoMatch} />
