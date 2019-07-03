@@ -31,4 +31,16 @@
             color: black;
         }
     }
+
+    .right-side{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    i {
+        color: $blue;
+        padding: 3px;
+        font-size: 1.1em;
+    }
 }

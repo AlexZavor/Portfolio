@@ -28,7 +28,7 @@ export default class PortfolioContainer extends Component {
           .catch(error => {
             console.log(error);
           });
-      }
+    }
 
     portfolioItems(){
         return this.state.data.map(item => {
