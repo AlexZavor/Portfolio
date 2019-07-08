@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 export default class PortfolioForm extends Component {
     constructor(props){
@@ -6,7 +7,7 @@ export default class PortfolioForm extends Component {
         this.state ={
             name: "",
             description: "",
-            catagory: "",
+            category: "filler",
             position: "",
             url: "",
             thumb_image: "",
@@ -25,7 +26,7 @@ export default class PortfolioForm extends Component {
         formData.append("portfolio_item[name]", this.state.name);
         formData.append("portfolio_item[description]", this.state.description);
         formData.append("portfolio_item[url]", this.state.url);
-        formData.append("portfolio_item[catagory]", this.state.catagory);
+        formData.append("portfolio_item[category]", this.state.category);
         formData.append("portfolio_item[position]", this.state.position);
 
         return formData;
@@ -38,7 +39,15 @@ export default class PortfolioForm extends Component {
     }
 
     handleSubmit(event){
-        this.buildForm();
+        axios.post("https://acarter.devcamp.space/portfolio/portfolio_items",
+        this.buildFrom(),
+        {withCredentials: true}
+        ).then(response =>{
+            this.props.handleSuccsessfulFormSubmission(response.data.portfolio_item);
+        }).catch(error =>{
+            console.log('handle submit error', error);
+        });
+
         event.preventDefault();
     }
 
@@ -71,16 +80,18 @@ export default class PortfolioForm extends Component {
                         value={this.state.position}
                         onChange={this.handleChange}
                         />
-                        <input
-                        type='text'
-                        name='catagory'
-                        placeholder='Catagory'
-                        value={this.state.catagory}
+                        <select
+                        name='category'
+                        value={this.state.category}
                         onChange={this.handleChange}
-                        />
+                        >
+                            <option value="filler">Filler</option>
+                            <option value="My Creations">My Creations</option>
+                            <option value="eCommerce">eCommerce</option>
+                        </select>
                     </div>
                     <div>
-                        <input
+                        <textarea
                         type='text'
                         name='description'
                         placeholder='Description'

@@ -16,9 +16,10 @@ export default class PortfolioManager extends Component{
         this.handleUnsuccsessfulFormSubmission = this.handleUnsuccsessfulFormSubmission.bind(this);
     }
 
-    handleSuccsessfulFormSubmission(portfolioItems){
-        // TODO
-        // update state and upload
+    handleSuccsessfulFormSubmission(portfolioItem){
+        this.setState({
+            portfolioItems: [portfolioItem].concat(this.state.portfolioItems)
+        })
     }
 
     handleUnsuccsessfulFormSubmission(error){
@@ -27,7 +28,7 @@ export default class PortfolioManager extends Component{
   
     getPortfolioItems(){
         axios
-          .get('https://acarter.devcamp.space/portfolio/portfolio_items')
+          .get('https://acarter.devcamp.space/portfolio/portfolio_items?order_by=created_at&direction=desc')
           .then(responce => {
             this.setState({
                 portfolioItems: [...responce.data.portfolio_items]
