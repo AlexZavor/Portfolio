@@ -2,6 +2,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 
+    .btn{
+        border-radius: 0px;
+    }
+
     .portfolio-item-wrapper{
         position: relative;
 
