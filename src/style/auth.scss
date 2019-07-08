@@ -13,4 +13,6 @@
         align-items: center;
         background-color: $offwhite;
     }
+
+    @include input-element();
 }
