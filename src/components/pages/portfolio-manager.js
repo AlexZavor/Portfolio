@@ -14,6 +14,7 @@ export default class PortfolioManager extends Component{
 
         this.handleSuccsessfulFormSubmission = this.handleSuccsessfulFormSubmission.bind(this);
         this.handleUnsuccsessfulFormSubmission = this.handleUnsuccsessfulFormSubmission.bind(this);
+        this.handleDeleteClick = this.handleDeleteClick.bind(this);
     }
 
     handleSuccsessfulFormSubmission(portfolioItem){
@@ -39,6 +40,10 @@ export default class PortfolioManager extends Component{
           });
     }
 
+    handleDeleteClick(portfolioItem){
+        console.log('this is what you want to delete', portfolioItem);
+    }
+
     componentDidMount(){
         this.getPortfolioItems();
     }
@@ -54,7 +59,10 @@ export default class PortfolioManager extends Component{
                     />
                 </div>
                 <div className='right-side'>
-                    <PortfolioSidebarList data={this.state.portfolioItems}/>
+                    <PortfolioSidebarList 
+                        data={this.state.portfolioItems}
+                        handleDeleteClick={this.handleDeleteClick}    
+                    />
                 </div>
             </div>
         );
