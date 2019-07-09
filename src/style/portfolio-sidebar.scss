@@ -12,11 +12,24 @@
             align-items: center;
             
             .title {
-                color: $offwhite
-            }
-            .trash{
-                color: $warning;
+                color: $offwhite;
                 font-size: 1.5em;
+            }
+
+            .actions{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-gap: 10px;
+                .action-icon{
+                    cursor: pointer;
+                    color: $offwhite;
+                    font-size: 1.2em;
+                    transition: .5s ease-in-out;
+    
+                    &:hover{
+                        color: $warning;
+                    }
+                }
             }
         }
     }    

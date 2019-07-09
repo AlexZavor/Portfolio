@@ -36,5 +36,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        .sign-out{
+            cursor: pointer;
+            margin-left: 10px;
+            color: $teal;
+            transition: .5s ease-in-out;
+
+            &:hover{
+                color: $dark-teal;
+            }
+        }
     }
 }
