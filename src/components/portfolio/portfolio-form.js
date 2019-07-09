@@ -4,6 +4,7 @@ import DropZoneComponent from 'react-dropzone-component';
 
 import "../../../node_modules/react-dropzone-component/styles/filepicker.css";
 import "../../../node_modules/dropzone/dist/min/dropzone.min.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class PortfolioForm extends Component {
     constructor(props){
@@ -17,6 +18,9 @@ export default class PortfolioForm extends Component {
             thumb_image: "",
             banner_image: "",
             logo: "",
+            editMode: false,
+            apiUrl: "https://acarter.devcamp.space/portfolio/portfolio_items",
+            apiAction: "post"
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -26,10 +30,44 @@ export default class PortfolioForm extends Component {
         this.handleThumbDrop = this.handleThumbDrop.bind(this);
         this.handleBannerDrop = this.handleBannerDrop.bind(this);
         this.handleLogoDrop = this.handleLogoDrop.bind(this);
+        this.deleteImage = this.deleteImage.bind(this);
 
         this.thumbRef = React.createRef();
         this.bannerRef = React.createRef();
         this.logoRef = React.createRef();
+    }
+
+    componentDidUpdate(){
+        if(Object.keys(this.props.portfolioToEdit).length > 0){
+            const {
+                id,
+                name,
+                description,
+                category,
+                position,
+                url,
+                thumb_image_url,
+                banner_image_url,
+                logo_url,
+            } = this.props.portfolioToEdit;
+
+            this.props.clearPortfolioToEdit();
+
+            this.setState({
+                id: id,
+                name: name || "",
+                description: description || "",
+                category: category || "filler",
+                position: position || "",
+                url: url || "",
+                editMode: true,
+                apiUrl: `https://acarter.devcamp.space/portfolio/portfolio_items/${id}`,
+                apiAction: "patch",
+                thumb_image_url: thumb_image_url || "",
+                banner_image_url: banner_image_url || "",
+                logo_url: logo_url || ""
+            })
+        }
     }
 
     handleThumbDrop(){
@@ -100,11 +138,18 @@ export default class PortfolioForm extends Component {
     }
 
     handleSubmit(event){
-        axios.post("https://acarter.devcamp.space/portfolio/portfolio_items",
-        this.buildFrom(),
-        {withCredentials: true}
-        ).then(response =>{
-            this.props.handleSuccsessfulFormSubmission(response.data.portfolio_item);
+
+        axios({
+            method: this.state.apiAction,
+            url: this.state.apiUrl,
+            data: this.buildFrom(),
+            withCredentials: true
+        }).then(response =>{
+            if(this.state.editMode) {
+                this.props.handleEditFormSubmission();
+            } else {
+                this.props.handleNewFormSubmission(response.data.portfolio_item);
+            }
 
             this.setState ({
                 name: "",
@@ -115,6 +160,9 @@ export default class PortfolioForm extends Component {
                 thumb_image: "",
                 banner_image: "",
                 logo: "",
+                editMode: false,
+                apiUrl: "https://acarter.devcamp.space/portfolio/portfolio_items",
+                apiAction: "post"
             });
 
             [this.thumbRef, this.bannerRef, this.logoRef].forEach(ref =>{
@@ -126,6 +174,10 @@ export default class PortfolioForm extends Component {
         });
 
         event.preventDefault();
+    }
+
+    deleteImage(imageType){
+        console.log ('delete image', imageType);
     }
 
     render(){
@@ -176,14 +228,33 @@ export default class PortfolioForm extends Component {
                     />
                 </div>
                 <div className="image-uploaders three-column">
-                    <DropZoneComponent
-                        ref={this.thumbRef}
-                        config={this.componentConfig()}
-                        djsConfig={this.djsConfig()}
-                        eventHandlers={this.handleThumbDrop()}
-                    >
-                        <div className="dz-message">Thumbnail</div>
-                    </DropZoneComponent>
+                    {this.state.thumb_image_url && this.state.editMode ? (
+                    <div className="portfolio-manager-image-wrapper">
+                        <img src={this.state.thumb_image_url} />
+                        <a onClick={() => this.deleteImage('thumb_image_url')}>
+                            <FontAwesomeIcon icon="minus-square" className="remove-icon" />
+                        </a>
+                    </div>
+                    ):(
+                        <DropZoneComponent
+                            ref={this.thumbRef}
+                            config={this.componentConfig()}
+                            djsConfig={this.djsConfig()}
+                            eventHandlers={this.handleThumbDrop()}
+                        >
+                            <div className="dz-message">Thumbnail</div>
+                        </DropZoneComponent>
+                    )}
+
+
+                    {this.state.banner_image_url && this.state.editMode ? (
+                    <div className="portfolio-manager-image-wrapper">
+                        <img src={this.state.banner_image_url} />
+                        <a onClick={() => this.deleteImage('banner_image_url')}>
+                            <FontAwesomeIcon icon="minus-square" className="remove-icon" />
+                        </a>
+                    </div>
+                    ):(
                     <DropZoneComponent
                         ref={this.bannerRef}
                         config={this.componentConfig()}
@@ -192,6 +263,17 @@ export default class PortfolioForm extends Component {
                     >
                         <div className="dz-message">Banner</div>
                     </DropZoneComponent>
+                    )}
+
+
+                    {this.state.logo_url && this.state.editMode ? (
+                    <div className="portfolio-manager-image-wrapper">
+                        <img src={this.state.logo_url} />
+                        <a onClick={() => this.deleteImage('logo_url')}>
+                            <FontAwesomeIcon icon="minus-square" className="remove-icon" />
+                        </a>
+                    </div>
+                    ):(
                     <DropZoneComponent
                         ref={this.logoRef}
                         config={this.componentConfig()}
@@ -200,6 +282,9 @@ export default class PortfolioForm extends Component {
                     >
                         <div className="dz-message">Logo</div>
                     </DropZoneComponent>
+                    )}
+
+
                 </div>
                 <div>
                     <button className='btn' type="submit">Save</button>
