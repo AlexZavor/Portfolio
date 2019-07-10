@@ -109,7 +109,7 @@ export default class PortfolioForm extends Component {
         };
     }
 
-    buildFrom(){
+    buildForm(){
         let formData = new FormData();
 
         formData.append("portfolio_item[name]", this.state.name);
@@ -117,7 +117,7 @@ export default class PortfolioForm extends Component {
         formData.append("portfolio_item[url]", this.state.url);
         formData.append("portfolio_item[category]", this.state.category);
         formData.append("portfolio_item[position]", this.state.position);
-
+        debugger;
         if(this.state.thumb_image){
             formData.append("portfolio_item[thumb_image]", this.state.thumb_image);
         }
@@ -138,19 +138,18 @@ export default class PortfolioForm extends Component {
     }
 
     handleSubmit(event){
-
         axios({
             method: this.state.apiAction,
             url: this.state.apiUrl,
-            data: this.buildFrom(),
+            data: this.buildForm(),
             withCredentials: true
-        }).then(response =>{
+        })
+        .then(response =>{
             if(this.state.editMode) {
                 this.props.handleEditFormSubmission();
             } else {
                 this.props.handleNewFormSubmission(response.data.portfolio_item);
             }
-
             this.setState ({
                 name: "",
                 description: "",
