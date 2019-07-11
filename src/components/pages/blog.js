@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { Link } from "react-router-dom";
 import axios from 'axios';
+import BlogItem from "../blog/blog-item"
 
 class Blog extends Component {
     constructor(){
@@ -17,6 +17,7 @@ class Blog extends Component {
             "https://acarter.devcamp.space/portfolio/portfolio_blogs",
             {withCredentails: true}
         ).then(response =>{
+            console.log("blog items", response);
             this.setState({
                 blogItems: response.data.portfolio_blogs
             })
@@ -30,12 +31,14 @@ class Blog extends Component {
     }
 
     render(){
+        const blogRecords = this.state.blogItems.map(blogItem =>{
+            return <BlogItem 
+                    key={blogItem.id} 
+                    blogItem={blogItem} />;
+        })
         return (
             <div>
-                blog
-                <div>
-                    <Link to='/about-me'>Learn more about me.</Link>
-                </div>
+                {blogRecords}
             </div>
         );
     }
