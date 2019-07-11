@@ -10,6 +10,15 @@ class Blog extends Component {
         }
 
         this.getBlogItems = this.getBlogItems.bind(this);
+        this.activateInfiniteScroll();
+    }
+
+    activateInfiniteScroll(){
+        window.onscroll = () => {
+            if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+                console.log("get more posts")
+            }
+        }
     }
 
     getBlogItems(){
@@ -17,7 +26,6 @@ class Blog extends Component {
             "https://acarter.devcamp.space/portfolio/portfolio_blogs",
             {withCredentails: true}
         ).then(response =>{
-            console.log("blog items", response);
             this.setState({
                 blogItems: response.data.portfolio_blogs
             })
@@ -37,8 +45,10 @@ class Blog extends Component {
                     blogItem={blogItem} />;
         })
         return (
-            <div>
-                {blogRecords}
+            <div className="blog-container">
+                <div className="content-container">
+                    {blogRecords}
+                </div>
             </div>
         );
     }
