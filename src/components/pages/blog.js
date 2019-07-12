@@ -85,8 +85,10 @@ class Blog extends Component {
     render(){
         const blogRecords = this.state.blogItems.map(blogItem =>{
             return <BlogItem 
-                    key={blogItem.id} 
-                    blogItem={blogItem} />;
+                key={blogItem.id} 
+                blogItem={blogItem}
+                loggedInStatus={this.props.loggedInStatus} 
+            />;
         })
         return (
             <div className="blog-container">
@@ -95,9 +97,12 @@ class Blog extends Component {
                     handleModalClose = {this.handleModalClose}
                     handleNewBlogSumbission = {this.handleNewBlogSumbission}
                 />
-                <div>
+
+                {this.props.loggedInStatus ===  "LOGGED_IN" ? (
+                    <div className="new-blog">
                     <FontAwesomeIcon icon="pen-fancy" onClick={this.handleNewBlogClick}/>
-                </div>
+                    </div>
+                ) : null}
 
                 <div className="content-container">
                     {blogRecords}

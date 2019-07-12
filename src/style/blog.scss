@@ -2,6 +2,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+
+    .new-blog{
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        font-size: 3em;
+        cursor: pointer;
+        color: $teal;
+        margin: 30px;
+        transition: 0.5s ease-in-out;
+
+        &:hover{
+            color: $dark-teal;
+        }
+    }
 
     .content-container{
         display: flex;
@@ -15,7 +31,19 @@
 
             &:hover{
                 color: $dark-teal;
+            }
+        }
 
+        .action-icon{
+            text-align: right;
+            cursor: pointer;
+            color: $charcoal;
+            font-size: 1.2em;
+            transition: .5s ease-in-out;
+            margin: 25px;
+
+            &:hover{
+                color: $warning;
             }
         }
 
