@@ -10,7 +10,8 @@ import {faTrash,
         faSignOutAlt, 
         faEdit, 
         faMinusSquare, 
-        faSpinner} 
+        faSpinner,
+        faPenFancy} 
         from "@fortawesome/free-solid-svg-icons";
 import NavigationContainer from './navigation/Navigation-container';
 import Home from './pages/home';
@@ -23,7 +24,7 @@ import PortfolioManager from './pages/portfolio-manager';
 import PortfolioDetail from './portfolio/portfolio-detail.js';
 import NoMatch from './pages/no-match';
 
-library.add(faTrash, faSignOutAlt, faEdit, faMinusSquare, faSpinner)
+library.add(faTrash, faSignOutAlt, faEdit, faMinusSquare, faSpinner, faPenFancy)
 
 export default class App extends Component {
   constructor(props){

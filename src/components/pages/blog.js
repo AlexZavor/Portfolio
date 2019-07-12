@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import BlogItem from "../blog/blog-item";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import BlogItem from "../blog/blog-item";
+import BlogModlal from "../modals/blog-modal";
+
 
 class Blog extends Component {
     constructor(){
@@ -10,12 +12,16 @@ class Blog extends Component {
             blogItems: [],
             totalCount: 0,
             currentPage: 0,
-            isLoading: true
+            isLoading: true,
+
+            modalIsOpen: false
         }
 
         this.getBlogItems = this.getBlogItems.bind(this);
         this.onScroll = this.onScroll.bind(this);
         window.addEventListener("scroll", this.onScroll, false);
+        this.handleNewBlogClick = this.handleNewBlogClick.bind(this);
+        this.handleModalClose = this.handleModalClose.bind(this);
     }
 
     onScroll(){
@@ -56,6 +62,18 @@ class Blog extends Component {
         window.removeEventListener("scroll", this.onScroll, false);
     }
 
+    handleNewBlogClick(){
+        this.setState({
+            modalIsOpen: true
+        });
+    }
+
+    handleModalClose(){
+        this.setState({
+            modalIsOpen: false
+        });
+    }
+
     render(){
         const blogRecords = this.state.blogItems.map(blogItem =>{
             return <BlogItem 
@@ -64,6 +82,14 @@ class Blog extends Component {
         })
         return (
             <div className="blog-container">
+                <BlogModlal 
+                    modalIsOpen = {this.state.modalIsOpen}
+                    handleModalClose = {this.handleModalClose}
+                />
+                <div>
+                    <FontAwesomeIcon icon="pen-fancy" onClick={this.handleNewBlogClick}/>
+                </div>
+
                 <div className="content-container">
                     {blogRecords}
                 </div>
