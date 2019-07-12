@@ -22,6 +22,7 @@ class Blog extends Component {
         window.addEventListener("scroll", this.onScroll, false);
         this.handleNewBlogClick = this.handleNewBlogClick.bind(this);
         this.handleModalClose = this.handleModalClose.bind(this);
+        this.handleNewBlogSumbission = this.handleNewBlogSumbission.bind(this);
     }
 
     onScroll(){
@@ -74,6 +75,13 @@ class Blog extends Component {
         });
     }
 
+    handleNewBlogSumbission(blog){
+        this.setState({
+            modalIsOpen: false,
+            blogItems: [blog].concat(this.state.blogItems)
+        })
+    }
+
     render(){
         const blogRecords = this.state.blogItems.map(blogItem =>{
             return <BlogItem 
@@ -85,6 +93,7 @@ class Blog extends Component {
                 <BlogModlal 
                     modalIsOpen = {this.state.modalIsOpen}
                     handleModalClose = {this.handleModalClose}
+                    handleNewBlogSumbission = {this.handleNewBlogSumbission}
                 />
                 <div>
                     <FontAwesomeIcon icon="pen-fancy" onClick={this.handleNewBlogClick}/>

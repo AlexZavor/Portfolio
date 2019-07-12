@@ -25,6 +25,13 @@ export default class BlogModal extends Component{
             }
             
         }
+
+        this.handleNewFormSumbission = this.handleNewFormSumbission.bind(this);
+    }
+
+    handleNewFormSumbission(blog){
+        console.log("blog form", blog)
+        this.props.handleNewBlogSumbission(blog);
     }
 
     render(){
@@ -37,7 +44,9 @@ export default class BlogModal extends Component{
                         this.props.handleModalClose();
                     }}
                 >
-                    <BlogForm/>
+                    <BlogForm
+                        handleNewFormSumbission = {this.handleNewFormSumbission}
+                    />
                 </ReactModal>
             </div>
         );
