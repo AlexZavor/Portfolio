@@ -5,14 +5,6 @@ import {
   Route
 } from 'react-router-dom';
 import axios from 'axios';
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faTrash, 
-        faSignOutAlt, 
-        faEdit, 
-        faMinusSquare, 
-        faSpinner,
-        faPenFancy} 
-        from "@fortawesome/free-solid-svg-icons";
 import NavigationContainer from './navigation/Navigation-container';
 import Home from './pages/home';
 import About from './pages/about';
@@ -23,12 +15,13 @@ import Auth from './pages/auth';
 import PortfolioManager from './pages/portfolio-manager';
 import PortfolioDetail from './portfolio/portfolio-detail.js';
 import NoMatch from './pages/no-match';
-
-library.add(faTrash, faSignOutAlt, faEdit, faMinusSquare, faSpinner, faPenFancy)
+import Icons from '../helpers/icons';
 
 export default class App extends Component {
   constructor(props){
     super(props);
+
+    Icons();
 
     this.state ={
       loggedInStatus: "NOT_LOGGED_IN"
