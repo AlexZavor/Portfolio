@@ -23,6 +23,7 @@ class Blog extends Component {
         this.handleNewBlogClick = this.handleNewBlogClick.bind(this);
         this.handleModalClose = this.handleModalClose.bind(this);
         this.handleNewBlogSumbission = this.handleNewBlogSumbission.bind(this);
+        this.handleDeleteClick = this.handleDeleteClick.bind(this);
     }
 
     onScroll(){
@@ -81,6 +82,22 @@ class Blog extends Component {
             blogItems: [blog].concat(this.state.blogItems)
         })
     }
+    
+    handleDeleteClick(blogItem){
+        axios
+            .delete(`https://acarter.devcamp.space/portfolio/portfolio_blogs/${blogItem.id}`,
+            {withCredentials: true}
+            ).then(response => {
+                this.setState({
+                    blogItems: this.state.blogItems.filter(item =>{
+                        return item.id !== blogItem.id;
+                    })
+                });
+                return response.data;
+            }).catch(error => {
+                console.log("delete blog error", error);
+            });
+    }
 
     render(){
         const blogRecords = this.state.blogItems.map(blogItem =>{
@@ -88,6 +105,7 @@ class Blog extends Component {
                 key={blogItem.id} 
                 blogItem={blogItem}
                 loggedInStatus={this.props.loggedInStatus} 
+                handleDeleteClick={this.handleDeleteClick}
             />;
         })
         return (

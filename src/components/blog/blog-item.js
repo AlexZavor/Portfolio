@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import striptags from 'striptags';
+import Truncate from 'react-truncate'
 
 const BlogItem = props => {
     const {
@@ -18,13 +20,26 @@ const BlogItem = props => {
                     <h1>{title}</h1>
                 </Link>
                 {props.loggedInStatus === "LOGGED_IN" ? (
-                    <div className="action-icon">
+                    <a className="action-icon"
+                    onClick={() => props.handleDeleteClick(props.blogItem)}>
                         <FontAwesomeIcon icon="trash" />
-                    </div>
+                    </a>
                 ) : null}
             </div>
             <div>
-                {content}
+                <Truncate
+                    lines={4}
+                    ellipsis={
+                        <span>
+                            ... 
+                            <Link to={`/b/${id}`}>
+                                    Continue Reading
+                            </Link>
+                        </span>
+                    }
+                >
+                {striptags(content)}
+                </Truncate>
             </div>
         </div>
     );

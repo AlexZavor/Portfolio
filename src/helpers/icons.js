@@ -1,6 +1,7 @@
 import {library} from "@fortawesome/fontawesome-svg-core";
 
-import {faTrash, 
+import {
+    faTrash, 
     faSignOutAlt, 
     faEdit, 
     faMinusSquare, 
