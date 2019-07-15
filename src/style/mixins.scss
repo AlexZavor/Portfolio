@@ -38,6 +38,17 @@
             border-bottom: 1px solid $dark-teal;
         }
     }
+    select{
+        border: 1px $teal solid;
+        border-radius: 3px;
+        color: $charcoal;
+        font-family: "Oswald", sans-serif;
+        font-size: 1.1em;
+
+        &:focus{
+            outline: none;
+        }
+    }
 }
 
 @mixin base-grid() {

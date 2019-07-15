@@ -10,7 +10,7 @@ export default class BlogForm extends Component{
 
         this.state = {
             title: "",
-            blog_status: "",
+            blog_status: "draft",
             content: "",
             featured_image: ""
         }
@@ -111,13 +111,15 @@ export default class BlogForm extends Component{
                             placeholder="Blog Title"
                             value={this.state.title}
                         />
-                        <input 
-                            onChange={this.handleChange} 
-                            name="blog_status"
-                            type="text"
-                            placeholder="Blog Status"
-                            value={this.state.blog_status}
-                        />
+                        <select
+                        name='blog_status'
+                        value={this.state.blog_status}
+                        onChange={this.handleChange}
+                        className="select-element"
+                        >
+                            <option value="draft">Draft</option>
+                            <option value="published">Published</option>
+                        </select>
                     </div>
 
                     <div className="one-column">
