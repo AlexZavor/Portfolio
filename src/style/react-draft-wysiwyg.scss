@@ -815,6 +815,8 @@
     height: 100%;
     overflow: auto;
     box-sizing: border-box;
+    border-top: $dark-teal solid 1px;
+    border-radius: 3px;
   }
   .rdw-editor-toolbar {
     padding: 6px 5px 0;
@@ -834,6 +836,8 @@
   }
   .rdw-editor-wrapper {
     box-sizing: content-box;
+    border: $dark-teal solid 2px;
+    border-radius: 3px;
   }
   .rdw-editor-main blockquote {
     border-left: 5px solid #f1f1f1;
@@ -914,6 +918,7 @@
   .public-DraftStyleDefault-ltr {
     direction: ltr;
     text-align: left;
+    margin: 10px;
   }
   .public-DraftStyleDefault-rtl {
     direction: rtl;
