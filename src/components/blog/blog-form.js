@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import DropzoneComponent from 'react-dropzone-component';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import RichTextEditor from '../forms/rich-text-editor'
 
@@ -15,10 +15,13 @@ export default class BlogForm extends Component{
             blog_status: "draft",
             content: "",
             featured_image: "",
+            apiUrl: "https://acarter.devcamp.space/portfolio/portfolio_blogs",
+            apiAction: "post",
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.deleteImage = this.deleteImage.bind(this);
         this.handleRichTextEditorChange = this.handleRichTextEditorChange.bind(this);
         
         this.componentConfig = this.componentConfig.bind(this);
@@ -33,7 +36,10 @@ export default class BlogForm extends Component{
             this.setState({
                 id: this.props.blog.id,
                 title: this.props.blog.title,
-                blog_status: this.props.blog.blog_status
+                blog_status: this.props.blog.blog_status,
+                content: this.props.blog.content,
+                apiUrl: `https://acarter.devcamp.space/portfolio/portfolio_blogs/${this.props.blog.id}`,
+                apiAction: "patch"
             })
         }
     }
@@ -84,44 +90,45 @@ export default class BlogForm extends Component{
     }
 
     handleSubmit(event){
-        axios
-            .post("https://acarter.devcamp.space/portfolio/portfolio_blogs", 
-            this.buildForm(), 
-            {withCredentials: true }
-            ).then(response => {
+        axios({
+            method: this.state.apiAction,
+            url: this.state.apiUrl,
+            data: this.buildForm(),
+            withCredentials: true
+        })
+        .then(response => {
 
-                if(this.state.featured_image){
-                    this.featuredImageRef.current.dropzone.removeAllFiles();
-                }
+            if(this.state.featured_image){
+                this.featuredImageRef.current.dropzone.removeAllFiles();
+            }
 
-                this.setState({
-                    title: "",
-                    blog_status: "",
-                    content: "",
-                    featured_image: ""
-                })
-
+            this.setState({
+                title: "",
+                blog_status: "",
+                content: "",
+                featured_image: ""
+            })
+            if (this.props.editMode){
+                this.props.handleUpdateFormSubmission(response.data.portfolio_blog);
+            }else{
                 this.props.handleNewFormSumbission(response.data.portfolio_blog);
-            }).catch(error =>{
-                console.log("handle submit blog error", error);
-            });
-        
-
+            }
+        }).catch(error =>{
+            console.log("handle submit blog error", error);
+        });
 
         event.preventDefault();
     }
 
-    deleteImage(imageType){
+    deleteImage(){
         axios
             .delete(
-                `https://api.devcamp.space/portfolio/delete-portfolio-image/${this.state.id}?image_type=${imageType}`,
+                `https://api.devcamp.space/portfolio/delete-portfolio-blog-image/${this.props.blog.id}?image_type=featured_image`,
                 {withCredentials: true}
             ).then(response => {
-                this.setState({
-                    [`${imageType}_url`]: ""
-                })
+                this.props.handleFeaturedImageDelete();
             }).catch(error => {
-                console.log("deleteImage Error", error);
+                console.log("deleteBlogImage Error", error);
             });
     }
 
@@ -160,9 +167,9 @@ export default class BlogForm extends Component{
                         {this.props.editMode && this.props.blog.featured_image_url ? (
                             <div className="edit-image-wrapper">
                                 <img src={this.props.blog.featured_image_url} />
-                                {/* <a onClick={() => this.deleteImage('featured_image')}>
+                                <a onClick={() => this.deleteImage()}>
                                     <FontAwesomeIcon icon="minus-square" className="remove-icon" />
-                                </a> */}
+                                </a>
                             </div>
                         ) : (
                             <DropzoneComponent
