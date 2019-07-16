@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import DropzoneComponent from 'react-dropzone-component';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 import RichTextEditor from '../forms/rich-text-editor'
 
@@ -110,6 +111,20 @@ export default class BlogForm extends Component{
         event.preventDefault();
     }
 
+    deleteImage(imageType){
+        axios
+            .delete(
+                `https://api.devcamp.space/portfolio/delete-portfolio-image/${this.state.id}?image_type=${imageType}`,
+                {withCredentials: true}
+            ).then(response => {
+                this.setState({
+                    [`${imageType}_url`]: ""
+                })
+            }).catch(error => {
+                console.log("deleteImage Error", error);
+            });
+    }
+
     render(){
         return(
             <form onSubmit={this.handleSubmit}>
@@ -142,14 +157,23 @@ export default class BlogForm extends Component{
                     </div>
                     
                     <div className="image-uploaders">
-                        <DropzoneComponent
-                            ref={this.featuredImageRef}
-                            config={this.componentConfig()}
-                            djsConfig={this.djsConfig()}
-                            eventHandlers={this.handleFeaturedImageDrop()}
-                        >
-                            <div className="dz-message">Featured Image</div>
-                        </DropzoneComponent>
+                        {this.props.editMode && this.props.blog.featured_image_url ? (
+                            <div className="edit-image-wrapper">
+                                <img src={this.props.blog.featured_image_url} />
+                                {/* <a onClick={() => this.deleteImage('featured_image')}>
+                                    <FontAwesomeIcon icon="minus-square" className="remove-icon" />
+                                </a> */}
+                            </div>
+                        ) : (
+                            <DropzoneComponent
+                                ref={this.featuredImageRef}
+                                config={this.componentConfig()}
+                                djsConfig={this.djsConfig()}
+                                eventHandlers={this.handleFeaturedImageDrop()}
+                            >
+                                <div className="dz-message">Featured Image</div>
+                            </DropzoneComponent>
+                        )}
                     </div>
                     <button className="btn">Save</button>
                 </div>

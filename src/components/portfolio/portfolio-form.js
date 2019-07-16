@@ -238,7 +238,7 @@ export default class PortfolioForm extends Component {
                 </div>
                 <div className="image-uploaders three-column">
                     {this.state.thumb_image_url && this.state.editMode ? (
-                    <div className="portfolio-manager-image-wrapper">
+                    <div className="edit-image-wrapper">
                         <img src={this.state.thumb_image_url} />
                         <a onClick={() => this.deleteImage('thumb_image')}>
                             <FontAwesomeIcon icon="minus-square" className="remove-icon" />
@@ -257,7 +257,7 @@ export default class PortfolioForm extends Component {
 
 
                     {this.state.banner_image_url && this.state.editMode ? (
-                    <div className="portfolio-manager-image-wrapper">
+                    <div className="edit-image-wrapper">
                         <img src={this.state.banner_image_url} />
                         <a onClick={() => this.deleteImage('banner_image')}>
                             <FontAwesomeIcon icon="minus-square" className="remove-icon" />
@@ -276,7 +276,7 @@ export default class PortfolioForm extends Component {
 
 
                     {this.state.logo_url && this.state.editMode ? (
-                    <div className="portfolio-manager-image-wrapper">
+                    <div className="edit-image-wrapper">
                         <img src={this.state.logo_url} />
                         <a onClick={() => this.deleteImage('logo')}>
                             <FontAwesomeIcon icon="minus-square" className="remove-icon" />
