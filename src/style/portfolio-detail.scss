@@ -1,0 +1,48 @@
+.detail-content-wrapper{
+    .banner-wrapper{
+        background-size: cover;
+        background-image: filter;
+        display: grid;
+        grid-template-columns: 1fr, 1fr;
+        height: 200px;
+        position: relative;
+        box-shadow:  0px 15px 19px 5px rgba(0, 0, 0, 0.61);
+        
+        .title{ 
+            color: $teal;
+            position: absolute;
+            top: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            h1{
+                margin: 50px;
+                padding: 5px;
+                background-color: $offwhite;
+                border-radius: 3px;
+            }
+        }
+        .logo-wrapper{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            img{
+                height: 150px;
+                margin: 10px;
+            }
+        }
+    }
+    .content-wrapper{
+        background-color: $offwhite;
+        padding: 20px;
+        padding-top: 40px;
+        height: calc(100vh - 344px);
+        .link{
+            a{
+                text-decoration: none;
+                color: $teal;
+            }
+        }
+    }
+}
