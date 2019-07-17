@@ -1,4 +1,4 @@
-.auth-page-wrapper{
+.side-by-side-wrapper{
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: calc(100vh - 84px);
@@ -12,6 +12,13 @@
         justify-content: center;
         align-items: center;
         background-color: $offwhite;
+        flex-direction: column;
+        .title-wrapper{
+            color: $teal;
+        }
+        .text-wrapper{
+            margin: 20px;
+        }
     }
 
     @include input-element();
