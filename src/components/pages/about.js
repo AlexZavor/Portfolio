@@ -13,7 +13,7 @@ export default function () {
             </div>
             <div className="right-column">
                 <div className="title-wrapper">
-                    <h1>About Me</h1>
+                    <h1>About This Blog</h1>
                 </div>
                 <div className="text-wrapper">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet eros posuere, congue diam non, pulvinar sem. Nullam vel gravida neque, eu faucibus turpis. Integer at sapien quam. Pellentesque magna quam, elementum sit amet congue sit amet, vulputate nec dolor. Suspendisse potenti. Vivamus elementum odio at metus euismod auctor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.

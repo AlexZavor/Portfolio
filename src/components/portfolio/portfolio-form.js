@@ -12,8 +12,7 @@ export default class PortfolioForm extends Component {
         this.state ={
             name: "",
             description: "",
-            category: "filler",
-            position: "",
+            category: "Other",
             url: "",
             thumb_image: "",
             banner_image: "",
@@ -116,7 +115,6 @@ export default class PortfolioForm extends Component {
         formData.append("portfolio_item[description]", this.state.description);
         formData.append("portfolio_item[url]", this.state.url);
         formData.append("portfolio_item[category]", this.state.category);
-        formData.append("portfolio_item[position]", this.state.position);
         debugger;
         if(this.state.thumb_image){
             formData.append("portfolio_item[thumb_image]", this.state.thumb_image);
@@ -153,7 +151,7 @@ export default class PortfolioForm extends Component {
             this.setState ({
                 name: "",
                 description: "",
-                category: "filler",
+                category: "other",
                 position: "",
                 url: "",
                 thumb_image: "",
@@ -208,23 +206,16 @@ export default class PortfolioForm extends Component {
                     onChange={this.handleChange}
                     />
                 </div>
-                <div className="two-column">
-                    <input
-                    type='text'
-                    name='position'
-                    placeholder='Postion'
-                    value={this.state.position}
-                    onChange={this.handleChange}
-                    />
+                <div className="one-column">
                     <select
                     name='category'
                     value={this.state.category}
                     onChange={this.handleChange}
                     className="select-element"
                     >
-                        <option value="filler">Filler</option>
-                        <option value="My Creations">My Creations</option>
-                        <option value="eCommerce">eCommerce</option>
+                        <option value="Other">Other</option>
+                        <option value="Main-characters">Main characters</option>
+                        <option value="Side-characters">Side characters</option>
                     </select>
                 </div>
                 <div className="one-column">

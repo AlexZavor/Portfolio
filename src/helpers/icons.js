@@ -6,10 +6,7 @@ import {
     faEdit, 
     faMinusSquare, 
     faSpinner,
-    faPenFancy,
-    faIdCard,
-    faPhoneSquareAlt,
-    faMapMarkerAlt,} 
+    faPenFancy} 
 from "@fortawesome/free-solid-svg-icons";
 
 const Icons = () => {
@@ -19,10 +16,7 @@ const Icons = () => {
         faEdit, 
         faMinusSquare, 
         faSpinner, 
-        faPenFancy,
-        faIdCard,
-        faPhoneSquareAlt,
-        faMapMarkerAlt)
+        faPenFancy)
 }
 
 export default Icons;

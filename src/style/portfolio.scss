@@ -2,9 +2,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 
-    .btn{
-        border-radius: 0px;
-    }
 
     .loading{
         display: flex;
@@ -76,4 +73,14 @@
 .image-blur{
     transition: .7s;
     filter: brightness(10%);
+}
+
+.portfolio-buttons{
+
+    .btn{
+        border-radius: 0px;
+    }
+    grid-gap: 2px;
+    width: 100%;
+    background-color: $dark-teal;
 }

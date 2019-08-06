@@ -21,7 +21,7 @@ export default class PortfolioContainer extends Component {
   
     getPortfolioItems(){
         axios
-          .get('https://acarter.devcamp.space/portfolio/portfolio_items')
+          .get('https://acarter.devcamp.space/portfolio/portfolio_items?order_by=created_at&direction=desc')
           .then(responce => {
             this.setState({
                 data: responce.data.portfolio_items,
@@ -63,22 +63,29 @@ export default class PortfolioContainer extends Component {
 
     render() {
         return (
-            <div className="portfolio-items-wrapper">
-                <button className="btn" onClick={() => this.handleFilter('All')}>
-                    All
-                </button>
-                <button className="btn" onClick={() => this.handleFilter('My Creations')}>
-                    My Creations
-                </button>
-                <button className="btn" onClick={() => this.handleFilter('filler')}>
-                    Filler
-                </button>
-                {this.state.isLoading ? (
-                    <div className="loading">
-                        <FontAwesomeIcon icon="spinner" className="spinner" spin/>
-                    </div>
-                ):null}
-                {this.portfolioItems()}
+            <div>
+                <div className="four-column portfolio-buttons">
+                    <button className="btn" onClick={() => this.handleFilter('All')}>
+                        All
+                    </button>
+                    <button className="btn" onClick={() => this.handleFilter('Main-characters')}>
+                        Main characters
+                    </button>
+                    <button className="btn" onClick={() => this.handleFilter('Side-characters')}>
+                        Side characters
+                    </button>
+                    <button className="btn" onClick={() => this.handleFilter('Other')}>
+                        Other
+                    </button>
+                </div>
+                <div className="portfolio-items-wrapper">
+                    {this.state.isLoading ? (
+                        <div className="loading">
+                            <FontAwesomeIcon icon="spinner" className="spinner" spin/>
+                        </div>
+                    ):null}
+                    {this.portfolioItems()}
+                </div>
             </div>
         );
     }

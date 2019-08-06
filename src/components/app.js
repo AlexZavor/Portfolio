@@ -8,7 +8,6 @@ import axios from 'axios';
 import NavigationContainer from './navigation/Navigation-container';
 import Home from './pages/home';
 import About from './pages/about';
-import Contact from './pages/contact';
 import Blog from './pages/blog';
 import BlogDetail from './pages/blog-detail'
 import Auth from './pages/auth';
@@ -102,7 +101,6 @@ export default class App extends Component {
                 />
               )} />
               <Route path = "/about-me" component = {About} />
-              <Route path = "/contact" component = {Contact} />
               <Route path = "/blog" render={props => (
                 <Blog
                   {...props}
