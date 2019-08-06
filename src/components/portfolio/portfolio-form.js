@@ -13,7 +13,7 @@ export default class PortfolioForm extends Component {
             name: "",
             description: "",
             category: "filler",
-            position: "",
+            position: null,
             url: "",
             thumb_image: "",
             banner_image: "",
@@ -208,14 +208,7 @@ export default class PortfolioForm extends Component {
                     onChange={this.handleChange}
                     />
                 </div>
-                <div className="two-column">
-                    <input
-                    type='text'
-                    name='position'
-                    placeholder='Postion'
-                    value={this.state.position}
-                    onChange={this.handleChange}
-                    />
+                <div className="one-column">
                     <select
                     name='category'
                     value={this.state.category}

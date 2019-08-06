@@ -46,7 +46,10 @@ export default class PortfolioManager extends Component{
           .get('https://acarter.devcamp.space/portfolio/portfolio_items?order_by=created_at&direction=desc')
           .then(responce => {
             this.setState({
-                portfolioItems: [...responce.data.portfolio_items]
+                portfolioItems: [...responce.data.portfolio_items 
+                    .filter(item =>{
+                        return item.position === null;
+                    })]
             })
           })
           .catch(error => {

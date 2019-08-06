@@ -24,8 +24,14 @@ export default class PortfolioContainer extends Component {
           .get('https://acarter.devcamp.space/portfolio/portfolio_items')
           .then(responce => {
             this.setState({
-                data: responce.data.portfolio_items,
-                dataFiltered: responce.data.portfolio_items,
+                data: 
+                    responce.data.portfolio_items.filter(item =>{
+                        return item.position === null;
+                    }),
+                dataFiltered: 
+                    responce.data.portfolio_items.filter(item =>{
+                        return item.position === null;
+                    }),
                 isLoading: false
             })
           })
